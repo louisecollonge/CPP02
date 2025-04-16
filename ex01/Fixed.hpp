@@ -18,7 +18,7 @@ class Fixed
 {
 	private:
 		int					fixedPoint;
-		static const int	bits = 8; // 8 digits after point
+		static const int	bits = 8;
 
 	public:
 		Fixed();

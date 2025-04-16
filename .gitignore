@@ -1,5 +1,6 @@
 CPP02.pdf
 CPP02 explanation.odt
+.~lock.CPP02 explanation.odt#
 obj
 *.o
 .vscode
@@ -9,4 +10,7 @@ ex00/obj
 
 ex01/obj
 ex01/fixed
+
+ex02/obj
+ex02/fixed
 
