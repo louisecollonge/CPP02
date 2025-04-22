@@ -60,7 +60,7 @@ class Fixed
 		static const Fixed&	max( const Fixed& a, const Fixed& b );
 };
 
-#define EPSILON	(1.0f / (1 << Fixed::bits)) // = 1/256
+// #define EPSILON	(1.0f / (1 << Fixed::bits)) // = 1/256
 
 // << is a global operator, not modifying the objects of the Fixed class.
 // If it were a Fixed method, the main would look like: a.operator<<(std::cout);

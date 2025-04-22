@@ -30,27 +30,27 @@ bool	bsp( Point const a, Point const b, Point const c, Point const point)
 		resAbap = "middle";
 
 // is (BC*BP) left (>0) or right (<0) ?
-	Fixed	bcap = x_bc * y_bp - x_bp * y_bc;
-	std::string	resBcap;
-	if (bcap > 0)
-		resBcap = "left";
-	else if (bcap < 0)
-		resBcap = "right";
+	Fixed	bcbp = x_bc * y_bp - x_bp * y_bc;
+	std::string	resBcbp;
+	if (bcbp > 0)
+		resBcbp = "left";
+	else if (bcbp < 0)
+		resBcbp = "right";
 	else
-		resBcap = "middle";
+		resBcbp = "middle";
 
 // is (CA*CP) left (>0) or right (<0) ?
-	Fixed	caap = x_ca * y_cp - x_cp * y_ca;
-	std::string	resCaap;
-	if (caap > 0)
-		resCaap = "left";
-	else if (caap < 0)
-		resCaap = "right";
+	Fixed	cacp = x_ca * y_cp - x_cp * y_ca;
+	std::string	resCacp;
+	if (cacp > 0)
+		resCacp = "left";
+	else if (cacp < 0)
+		resCacp = "right";
 	else
-		resCaap = "middle";
+		resCacp = "middle";
 
 // are the 3 results all the same ? then it is inside the triangle
-	if (resAbap == resBcap && resAbap == resCaap)
+	if (resAbap == resBcbp && resAbap == resCacp)
 		return (true);
 	return (false);
 }
@@ -61,10 +61,10 @@ bool	bsp( Point const a, Point const b, Point const c, Point const point)
 
 A->B then B->C then C->D: is P always on the left or always on the right? Then it is inside the triangle.
 
-If P is on the left of AB, it means that A->B->P is a counter-clock-wise angle.
+If P is on the left of AB, it means that BAP is a counter-clock-wise angle.
 By mathematical convention, that means (AB * AP) > 0.
 
-if P is on the right of AB, it means that A->B->P is a clock-wise angle, so (AB * AP) < 0
+if P is on the right of AB, it means that BAP is a clock-wise angle, so (AB * AP) < 0
 
 Vector multiplication:
 AB * CD = x_AB * y_CD - x_CD * y_AB

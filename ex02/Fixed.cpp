@@ -1,12 +1,13 @@
 #include "Fixed.hpp"
 
 Fixed::Fixed() : fixedPoint(0) {}
+Fixed::Fixed( const Fixed& other ) { *this = other; }
+Fixed::Fixed( const int value ) { this->fixedPoint = value << bits; }
+Fixed::Fixed( const float value ) { this->fixedPoint = static_cast<int>(roundf(value * (1 << bits))); }
 Fixed::~Fixed() {}
 
 int		Fixed::getRawBits( void ) const { return (fixedPoint); }
 void	Fixed::setRawBits( int const raw ) { fixedPoint = raw; }
-
-Fixed::Fixed( const Fixed& other ) { *this = other; }
 
 Fixed	&Fixed::operator=( const Fixed& alternative )
 {
@@ -14,10 +15,6 @@ Fixed	&Fixed::operator=( const Fixed& alternative )
 		this->setRawBits(alternative.getRawBits());
 	return (*this);
 }
-
-Fixed::Fixed( const int value ) { this->fixedPoint = value << bits; }
-
-Fixed::Fixed( const float value ) { this->fixedPoint = static_cast<int>(roundf(value * (1 << bits))); }
 
 float	Fixed::toFloat( void ) const { return (static_cast<float>(fixedPoint) / (1 << bits)); }
 
@@ -49,13 +46,18 @@ Fixed	Fixed::operator-( const Fixed& minus ) const {
 Fixed	Fixed::operator*( const Fixed& multiplier ) const {
 	Fixed	result;
 	long	tmp = static_cast<long>(this->fixedPoint) * multiplier.fixedPoint;
-	result.fixedPoint = static_cast<int>(tmp >> bits);
+	result.fixedPoint = static_cast<int>(tmp >> bits);	// both fixedPoints and the real value are *2^bits
+														// so their product is multiplied one too many
+														// times by 2^8, so we divide it once (>> bits).
 	return (result);
 }
 Fixed	Fixed::operator/( const Fixed& divider ) const {
 	Fixed	result;
 	long	tmp = (static_cast<long>(this->fixedPoint) << bits) / divider.fixedPoint;
-	result.fixedPoint = static_cast<int>(tmp);
+	result.fixedPoint = static_cast<int>(tmp);	// same a multiplication, here both fixedPoints
+												// are multiplied by 2^bits, so the result is
+												// not multiplied by anything (*256 / *256 = *1)
+												// so we need to multiply it once (<< bits)
 	return (result);
 }
 

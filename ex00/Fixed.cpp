@@ -10,6 +10,7 @@ Fixed::Fixed() : nb(0)
 Fixed::Fixed( const Fixed& other )
 {
 	std::cout << LIGHT_GREEN << "Copy constructor called" << RESET << std::endl;
+	
 	this->nb = other.getRawBits();
 }
 
@@ -17,9 +18,10 @@ Fixed::Fixed( const Fixed& other )
 Fixed	&Fixed::operator=( const Fixed& alternative )
 {
 	std::cout << PINK << "Copy assignment operator called" << RESET << std::endl;
-	if (this != &alternative) // 'this' is a pointer
+
+	if (this != &alternative) // avoiding self-assignment (would only cause pb with dynamic memory, but still good practice here)
 		this->setRawBits(alternative.getRawBits());
-	return (*this); // de-referencing 'this' to return its value, making a reference
+	return (*this); // de-referencing 'this' pointer to return the value, making a reference
 }
 
 // Destructor
